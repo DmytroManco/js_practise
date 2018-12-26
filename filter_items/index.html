@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Filter</title>
+    <style>
+        .d-none {
+            display: none;
+        }
+        .btn__filter {
+            font-weight: 700;
+            background: 0 0;
+            border-radius: 2px;
+            border: 1px solid #1357db;
+            color: #1357db;
+            letter-spacing: 1.5px;
+            line-height: 20px;
+            padding: .5rem 1rem;
+            cursor: pointer;
+        }
+        .btn__filter.btn-active {
+            background: #284bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<h3>Filter</h3>
+
+<div class="filters">
+    <div class="filters__main" id="mainFilters">
+        <div class="filters__title"> Main Category: </div>
+        <button class="btn__filter" data-filter="outsource" data-filter-prop="service">Outsource</button>
+        <button class="btn__filter" data-filter="outstaff" data-filter-prop="service">Outstaff</button>
+    </div>
+    <div class="filters__sub" id="subFilters">
+        <div class="filters__title"> Sub Category: </div>
+        <button class="btn__filter" data-filter="angular" data-filter-prop="technology">Angular</button>
+        <button class="btn__filter" data-filter="native" data-filter-prop="technology">Native App</button>
+        <button class="btn__filter" data-filter="umbraco" data-filter-prop="technology">Umbraco</button>
+        <button class="btn__filter" data-filter="ionic" data-filter-prop="technology">Ionic</button>
+    </div>
+</div>
+
+<div id='itemList' class="item_list">
+    <div class="case" data-filter-service="outsource" data-filter-technology="angular ionic">Angular Outsource</div>
+    <div class="case" data-filter-service="outstaff" data-filter-technology="native">Native App outstaff</div>
+    <div class="case" data-filter-service="outsource" data-filter-technology="umbraco">Umbraco outsource</div>
+    <div class="case" data-filter-service="outsource" data-filter-technology="ionic">Ionic outsource</div>
+</div>
+
+
+<!--<script src="script.js"></script>-->
+<script src="filter.js"></script>
+</body>
+</html>
