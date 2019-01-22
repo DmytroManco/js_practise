@@ -161,3 +161,245 @@ function capitalization(str) {
 
 // Given a phrase, substitute each character by shifting it up or down the alphabet by a given integer.
 // If necessary, the shifting should wrap around back to the beginning or end of the alphabet.
+function caesarCipher(string, number) {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+    const input = string.toLowerCase();
+    let output = "";
+
+    for (let i = 0; i < input.length; i++) {
+        const letter = input[i];
+
+        if (alphabet.indexOf(letter) === -1) {
+            output += letter;
+            continue;
+        }
+
+        let index = alphabet.indexOf(letter) + number % 26;
+        if (index > 25) index -= 26;
+        if (index < 0) index += 26;
+
+        output += string[i] === string[i].toUpperCase()
+            ? alphabet[index].toUpperCase()
+            : alphabet[index];
+    }
+
+    return output;
+}
+
+// Given a magazine of words and a ransom note, determine if it’s possible to “cut out” and
+// create the ransom note from the magazine words
+const magazine = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore  
+    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.  
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  
+    occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum`;
+
+function ransomNote(notes, magazine) {
+    const notesArr = notes.toLowerCase().split(' ');
+
+    for (const note of notesArr) {
+        if (!magazine.toLowerCase().includes(note)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Given an array of numbers, calculate the mean, median, and mode.
+class Stats {
+    constructor(nums) {
+        this.nums = nums;
+    }
+
+    mean() {
+        const value = this.nums.reduce((a, b) => a + b) / this.nums.length;
+
+        return Math.round(value * 100) / 100;
+    }
+
+    medium() {
+        if (this.nums.length % 2 !== 0) {
+            return this.nums[Math.floor(this.nums.length / 2)];
+        }
+
+        const index1 = this.nums.length / 2 - 1;
+        const index2 = this.nums.length / 2;
+        const value = this.nums.sort()[index1] + this.nums.sort()[index2] / 2;
+
+        return Math.floor(value * 10) / 10;
+    }
+
+    mode() {
+        const table = this.nums.reduce((obj, next) => {
+            if (obj[next]) {
+                obj[next] += 1;
+            }
+
+            if (!obj[next]) {
+                obj[next] = 1;
+            }
+
+            return obj;
+        }, {});
+        let [modes, max] = [[], 0];
+
+        for (const key in table) {
+            const value = parseFloat(key);
+            const count = table[key];
+
+            if (count > max) {
+                modes = [value];
+                max = count;
+            } else if (count === max) {
+                modes.push(value);
+            }
+        }
+
+        if (modes.length === Object.keys(table).length) {
+            modes = [];
+        }
+
+        return modes;
+    }
+}
+
+const stat1 = new Stats([1, 2, 3, 3, 4, 5, 5]);
+const stat2 = new Stats([1, 1, 2, 2, 3, 3, 4, 4, 0]);
+
+// Given an array of numbers, return all pairs that add up to a given sum. The numbers can be used more than once.
+function twoSum(arr, sum) {
+    const pairs = [];
+    const store = [];
+
+    for (let part1 of arr) {
+        const part2 = sum - part1;
+        if (store.indexOf(part2) !== -1) {
+            pairs.push([part1, part2])
+        }
+        store.push(part1);
+    }
+
+    return pairs;
+}
+
+// Given an array of stock prices, find the minimum buy price and the maximum sell price that produce the greatest profit.
+function maxProfit(prices) {
+    return [Math.min.apply(null, prices), Math.max.apply(null, prices)];
+}
+
+// For a given number, find all the prime numbers from zero to that number.
+function primes(num) {
+    const numbers = new Array(num + 1);
+    numbers.fill(true);
+    numbers[0] = numbers[1] = false;
+
+    for (let i = 2; i <= Math.sqrt(num); i++) {
+        for (let j = 2; i * j <= num; j++) {
+            numbers[i * j] = false;
+        }
+    }
+
+    return numbers.reduce((primes, isPrime, prime) => {
+        if (isPrime) {
+            primes.push(prime);
+        }
+        return primes;
+    }, []);
+}
+// Fibonacci Implement a function that returns the fibonacci number at a given index.
+function fibonacci(num) {
+    if (num <= 1) return num;
+    return fibonacci(num - 1) + fibonacci(num - 2);
+}
+
+// Implement a performant recursive function for the fibonacci series.
+const _memoize = fn => {
+    const cache = {};
+    return (...args) => {
+        if (cache[args]) return cache[args];
+
+        const output = fn.apply(this, args);
+        cache[args] = output;
+        return output;
+    };
+};
+
+const _fibonacci = element =>
+    element < 2
+        ? element
+        : _memoized_fibonacci(element - 1) + _memoized_fibonacci(element - 2);
+const _memoized_fibonacci = _memoize(_fibonacci);
+
+// For a given number of steps, print out a “staircase” using hashes and spaces.
+function stairCase(num) {
+    let str = '';
+
+    for (let row = 0; row < num; row++) {
+        let line = '';
+        for (let column = 0; column < num; column++) {
+            line += column <= row ? '#' : ' ';
+        }
+        str += line + '/n';
+    }
+
+    return str;
+}
+
+// For a given number of levels, print out a “pyramid” using hashes and spaces.
+const pyramid = number => {
+    let levels = "";
+    const midpoint = Math.floor((2 * number - 1) / 2);
+
+    for (let row = 0; row < number; row++) {
+        let level = "";
+        for (let column = 0; column < 2 * number - 1; column++)
+            level += midpoint - row <= column && column <= midpoint + row ? "#" : " ";
+        levels += level + "\n";
+    }
+
+    return levels;
+};
+
+// Create a square matrix of a given size in which elements are in spiral order.
+const spiral = number => {
+    let counter = 1;
+    let startRow = 0,
+        endRow = number - 1;
+    let startColumn = 0,
+        endColumn = number - 1;
+
+    const matrix = [];
+    for (let i = 0; i < number; i++) matrix.push([]);
+
+    while (startColumn <= endColumn && startRow <= endRow) {
+        // Start Row
+        for (let i = startColumn; i <= endColumn; i++) {
+            matrix[startRow][i] = counter;
+            counter++;
+        }
+        startRow++;
+
+        // End Column
+        for (let i = startRow; i <= endRow; i++) {
+            matrix[i][endColumn] = counter;
+            counter++;
+        }
+        endColumn--;
+
+        // End Row
+        for (let i = endColumn; i >= startColumn; i--) {
+            matrix[endRow][i] = counter;
+            counter++;
+        }
+        endRow--;
+
+        // Start Column
+        for (let i = endRow; i >= startRow; i--) {
+            matrix[i][startColumn] = counter;
+            counter++;
+        }
+        startColumn++;
+    }
+
+    return matrix;
+};
