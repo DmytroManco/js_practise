@@ -403,3 +403,52 @@ const spiral = number => {
 
     return matrix;
 };
+
+function bubbleSort(arr) {
+    let sorted = false;
+
+    while (!sorted) {
+        sorted = true;
+
+        arr.forEach((element, index, array) => {
+            if(element > array[index + 1]) {
+                array[index] = array[index + 1];
+                array[index + 1] = element;
+                sorted = false;
+            }
+        });
+    }
+
+    return arr;
+}
+
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; i ++) {
+        for (let j = 0; j < i; j++) {
+            if (arr[i] < arr[j]) {
+                const temp = arr.splice(i, 1);
+                arr.splice(j, 0, temp[0]);
+            }
+        }
+    }
+    return arr;
+}
+
+function selectionSort(arr) {
+    for(let i = 0; i < arr.length; i++) {
+        let min = i;
+
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[min] > arr[j]) {
+                min = j;
+            }
+        }
+        const temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
+    }
+
+    return arr;
+}
+
+console.log(selectionSort([5, 4, 3, 2, 1]));
