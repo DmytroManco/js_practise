@@ -306,6 +306,7 @@ function primes(num) {
         return primes;
     }, []);
 }
+
 // Fibonacci Implement a function that returns the fibonacci number at a given index.
 function fibonacci(num) {
     if (num <= 1) return num;
@@ -411,7 +412,7 @@ function bubbleSort(arr) {
         sorted = true;
 
         arr.forEach((element, index, array) => {
-            if(element > array[index + 1]) {
+            if (element > array[index + 1]) {
                 array[index] = array[index + 1];
                 array[index + 1] = element;
                 sorted = false;
@@ -423,7 +424,7 @@ function bubbleSort(arr) {
 }
 
 function insertionSort(arr) {
-    for (let i = 1; i < arr.length; i ++) {
+    for (let i = 1; i < arr.length; i++) {
         for (let j = 0; j < i; j++) {
             if (arr[i] < arr[j]) {
                 const temp = arr.splice(i, 1);
@@ -435,7 +436,7 @@ function insertionSort(arr) {
 }
 
 function selectionSort(arr) {
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         let min = i;
 
         for (let j = i + 1; j < arr.length; j++) {
@@ -451,4 +452,73 @@ function selectionSort(arr) {
     return arr;
 }
 
-console.log(selectionSort([5, 4, 3, 2, 1]));
+function quickSort(arr) {
+    if (arr.length < 1) return arr;
+
+    const [pivot, ...rest] = arr;
+    const left = [];
+    const right = [];
+
+    rest.forEach(el => el < pivot ? left.push(el) : right.push(el));
+
+    return quickSort(left).concat(pivot).concat(right);
+}
+
+function mergeSort(arr) {
+    if (arr.length < 2) return arr;
+    const middleIndex = Math.floor(arr.length / 2);
+    const left = arr.slice(0, middleIndex);
+    const right = arr.slice(middleIndex);
+
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+function merge(left, right) {
+    const result = [];
+
+    while (left.length && right.length) {
+        if (left[0] <= right[0]) {
+            result.push(left.shift());
+        } else {
+            result.push(right.shift());
+        }
+    }
+
+    while (left.length) result.push(left.shift());
+    while (right.length) result.push(right.shift());
+
+    return result;
+}
+
+function countingSort(arr) {
+    let i, j;
+    let k = 0;
+    let min = arr[0];
+    let max = arr[0];
+    const counts = [];
+    const result = [];
+
+    for (i = 0; i < arr.length; i++) {
+        if (min > arr[i])
+            min = arr[i];
+        else if (max < arr[i])
+            max = arr[i];
+    }
+
+    for (i = 0; i < max - min + 1; i++) {
+        counts[i] = 0;
+    }
+    for (i = 0; i < arr.length; i++) {
+        counts[arr[i] - min]++;
+    }
+
+    for (i = 0; i < counts.length; i++) {
+        for (j = 0; j < counts[i]; j++) {
+            result[k++] = i + min;
+        }
+    }
+
+    return result;
+}
+
+console.log(countingSort([5, 4, 3, 2, 1]));
