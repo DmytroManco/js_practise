@@ -72,7 +72,7 @@
     function showResultMsg() {
         dialog.classList.add('show');
 
-        if (score.user > score.program) {
+        if (+score.user > +score.program) {
             modalTitle.innerText = 'You Won!';
             modalImage.src = 'win.jpg';
         } else {
